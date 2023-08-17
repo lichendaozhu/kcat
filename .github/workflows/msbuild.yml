@@ -48,7 +48,7 @@ jobs:
       shell: bash
       run: |
         # Pack files
-        7z a -tzip "release.zip" "./x64/release/*"
+        7z a -tzip "release.zip" "x64\Release/*"
 
     - name: release
       uses: actions/create-release@v1
