@@ -44,3 +44,29 @@ jobs:
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
       run: msbuild /p:configuration=Release
+    - name: Pack
+      shell: bash
+      run: |
+        # Pack files
+        7z a -tzip "release.zip" "./x64/release/*"
+
+    - name: release
+      uses: actions/create-release@v1
+      id: create_release
+      with:
+        draft: false
+        prerelease: false
+        release_name: ${{ steps.version.outputs.version }}
+        tag_name: ${{ github.ref }}
+        body_path: CHANGELOG.md
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+    - name: upload windows artifact
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: release.zip
+        asset_name: release.zip
+        asset_content_type: application/zip   
