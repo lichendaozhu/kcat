@@ -8,9 +8,9 @@ name: MSBuild
 on:
   push:
     tags:
-      - 1.7.1
+      - '*'
   pull_request:
-    branches: [  "1.7.1" ]
+    branches: [  "*" ]
 
 env:
   # Path to the solution file relative to the root of the project.
