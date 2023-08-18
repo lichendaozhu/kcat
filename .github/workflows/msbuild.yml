@@ -23,7 +23,7 @@ env:
   GITHUB_WORKSPACE: win32
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build:
