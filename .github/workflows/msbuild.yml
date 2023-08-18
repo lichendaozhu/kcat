@@ -50,12 +50,16 @@ jobs:
       run: |
         # Pack files
         7z a -tzip "release.zip" "D:\a\kcat\kcat\win32\x64\Release\*"
-    - name: Release
-      uses: softprops/action-gh-release@v0.1.15
+    - name: upload windows artifact
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
       with:
-          files: release.zip
-          token: ${{ github.token }}
-         
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: release.zip
+        asset_name: release.windows-amd64.zip
+        asset_content_type: application/zip
+
 
       
 
